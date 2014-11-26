@@ -9,3 +9,5 @@ $manifest['description'] = __( 'This extension will enable you to have a fully o
 $manifest['version'] = '1.0.0';
 $manifest['display'] = true;
 $manifest['standalone'] = true;
+
+$manifest['github_update'] = 'ThemeFuse/Unyson-SEO-Extension';
