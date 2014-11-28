@@ -60,24 +60,22 @@ function fw_ext_seo_titles_meta_get_settings_options() {
 								'desc'  => __( 'Set title format', 'fw' ),
 								'type'  => 'seo-tags',
 								'value' => '%%title%% | %%sitename%%',
-								'help'  => sprintf( "%s%s",
-									__( 'Here are some tags examples:<br/>', 'fw' ),
-									__( '<span>%%sitename%%</span><br/>
-										<span>%%currentdate%%</span><br/>
-										<span>%%title%%</span>', 'fw' )
-								),
+								'help'  => __( 'Here are some tags examples:', 'fw' ) .
+								           '<br/>' .
+								           '<span>%%sitename%%</span><br/>' .
+								           '<span>%%currentdate%%</span><br/>' .
+								           '<span>%%title%%</span>',
 							),
 							'description' => array(
 								'label' => __( 'Description', 'fw' ),
 								'desc'  => __( 'Set description format', 'fw' ),
 								'type'  => 'seo-tags',
 								'value' => '',
-								'help'  => sprintf( "%s%s",
-									__( 'Here are some tags examples:<br/>', 'fw' ),
-									__( '<span>%%sitename%%</span><br/>
-										<span>%%currentdate%%</span><br/>
-										<span>%%title%%</span>', 'fw' )
-								),
+								'help'  => __( 'Here are some tags examples:', 'fw' ) .
+								           '<br/>' .
+								           '<span>%%sitename%%</span><br/>' .
+								           '<span>%%currentdate%%</span><br/>' .
+								           '<span>%%title%%</span>',
 							),
 							fw()->extensions->get( 'seo-titles-metas' )->use_meta_keywords(
 								array(
@@ -86,12 +84,11 @@ function fw_ext_seo_titles_meta_get_settings_options() {
 										'desc'  => __( 'Set meta keywords', 'fw' ),
 										'type'  => 'seo-tags',
 										'value' => '',
-										'help'  => sprintf( "%s%s",
-											__( 'Here are some tags examples:<br/>', 'fw' ),
-											__( '<span>%%sitename%%</span><br/>
-										<span>%%currentdate%%</span><br/>
-										<span>%%title%%</span>', 'fw' )
-										),
+										'help'  => __( 'Here are some tags examples:', 'fw' ) .
+										           '<br/>' .
+										           '<span>%%sitename%%</span><br/>' .
+										           '<span>%%currentdate%%</span><br/>' .
+										           '<span>%%title%%</span>',
 									)
 								)
 							),
@@ -115,24 +112,22 @@ function fw_ext_seo_titles_meta_get_settings_options() {
 									'desc'  => __( 'Set title format', 'fw' ),
 									'type'  => 'seo-tags',
 									'value' => '%%title%% | %%description%%',
-									'help'  => sprintf( "%s%s",
-										__( 'Here are some tags examples:<br/>', 'fw' ),
-										__( '<span>%%sitename%%</span><br/>
-										<span>%%currentdate%%</span><br/>
-										<span>%%title%%</span>', 'fw' )
-									),
+									'help'  => __( 'Here are some tags examples:', 'fw' ) .
+									           '<br/>' .
+									           '<span>%%sitename%%</span><br/>' .
+									           '<span>%%currentdate%%</span><br/>' .
+									           '<span>%%title%%</span>',
 								),
 								'description' => array(
 									'label' => __( 'Description', 'fw' ),
 									'desc'  => __( 'Set description format', 'fw' ),
 									'type'  => 'seo-tags',
 									'value' => '',
-									'help'  => sprintf( "%s%s",
-										__( 'Here are some tags examples:<br/>', 'fw' ),
-										__( '<span>%%sitename%%</span><br/>
-										<span>%%currentdate%%</span><br/>
-										<span>%%title%%</span>', 'fw' )
-									),
+									'help'  => __( 'Here are some tags examples:', 'fw' ) .
+									           '<br/>' .
+									           '<span>%%sitename%%</span><br/>' .
+									           '<span>%%currentdate%%</span><br/>' .
+									           '<span>%%title%%</span>',
 								),
 								fw()->extensions->get( 'seo-titles-metas' )->use_meta_keywords(
 									array(
@@ -141,12 +136,11 @@ function fw_ext_seo_titles_meta_get_settings_options() {
 											'desc'  => __( 'Set meta keywords', 'fw' ),
 											'type'  => 'seo-tags',
 											'value' => '',
-											'help'  => sprintf( "%s%s",
-												__( 'Here are some tags examples:<br/>', 'fw' ),
-												__( '<span>%%sitename%%</span><br/>
-										<span>%%currentdate%%</span><br/>
-										<span>%%title%%</span>', 'fw' )
-											),
+											'help'  => __( 'Here are some tags examples:', 'fw' ) .
+											           '<br/>' .
+											           '<span>%%sitename%%</span><br/>' .
+											           '<span>%%currentdate%%</span><br/>' .
+											           '<span>%%title%%</span>',
 										)
 									)
 								),
@@ -250,12 +244,11 @@ function fw_ext_seo_titles_meta_get_settings_options() {
 									'desc'  => __( 'Set search page title format', 'fw' ),
 									'type'  => 'seo-tags',
 									'value' => '%%searchphrase%%',
-									'help'  => sprintf( "%s%s",
-										__( 'Here are some tags examples:<br/>', 'fw' ),
-										__( '<span>%%sitename%%</span><br/>
-										<span>%%currentdate%%</span><br/>
-										<span>%%title%%</span>', 'fw' )
-									),
+									'help'  => __( 'Here are some tags examples:', 'fw' ) .
+									           '<br/>' .
+									           '<span>%%sitename%%</span><br/>' .
+									           '<span>%%currentdate%%</span><br/>' .
+									           '<span>%%title%%</span>',
 								)
 							)
 						),
