@@ -290,6 +290,10 @@ class FW_Extension_SEO extends FW_Extension {
 			$return['type'] = 'date_archive';
 		} elseif ( is_archive() ) {
 			$return['type'] = 'archive';
+		} elseif ( is_feed() ) {
+			$return['type'] = 'feed';
+		} else {
+			$return[''] = null;
 		}
 
 		/*

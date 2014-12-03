@@ -652,6 +652,13 @@ class FW_Extension_Seo_Titles_Metas extends FW_Extension {
 					$title = $fw_title;
 				}
 				break;
+			case 'feed' :
+				$fw_title = fw_ext_seo_parse_meta_tags( fw_get_db_ext_settings_option( $this->get_parent()->get_name(),
+					$prefix . 'homepage-title' ) );
+				if ( ! empty( $fw_title ) ) {
+					$title = $fw_title;
+				}
+				break;
 		}
 
 		$title = apply_filters( 'fw_ext_seo_titles_metas_load_title', $title, $sep, $sepdirection, $location );
