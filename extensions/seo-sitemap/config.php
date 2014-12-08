@@ -8,13 +8,30 @@
 
 $cfg = array();
 
+/**
+ * Search engines where to report about the sitemap existence.
+ * By default the extension supports only Google and Bing.
+ */
 $cfg['search_engines'] = array( 'google', 'bing' );
 
+/**
+ * The frequency of the sitemap refresh (measured in days).
+ */
 $cfg['sitemap_refresh_rate'] = 2;
 
+/**
+ * Exclude post types from sitemap indexing.
+ */
 $cfg['excluded_post_types']  = array( 'attachment' );
+
+/**
+ * Exclude taxonomies from sitemap indexing.
+ */
 $cfg['excluded_taxonomies']  = array( 'post_tag' );
 
+/**
+ * Setup the URL frequency and priority for each post_type, taxonomy and the homepage
+ */
 $cfg['url_settings'] = array(
 	'home'  => array(
 		'priority'  => 1,
