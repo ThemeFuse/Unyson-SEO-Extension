@@ -376,7 +376,7 @@ class FW_Extension_Seo_Titles_Metas extends FW_Extension {
 				}
 				break;
 			case 'category' :
-				if ( ! in_array( 'post_tag', $this->allowed_taxonomies ) ) {
+				if ( ! in_array( $location['type'], $this->allowed_taxonomies ) ) {
 					break;
 				}
 
@@ -602,7 +602,7 @@ class FW_Extension_Seo_Titles_Metas extends FW_Extension {
 				}
 				break;
 			case 'category' :
-				if ( ! in_array( 'post_tag', $this->allowed_taxonomies ) ) {
+				if ( ! in_array( $location['type'], $this->allowed_taxonomies ) ) {
 					break;
 				}
 

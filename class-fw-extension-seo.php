@@ -274,7 +274,7 @@ class FW_Extension_SEO extends FW_Extension {
 			$return['post_type'] = $post->post_type;
 		} elseif ( is_category() ) {
 			$return['type']          = 'category';
-			$return['taxonomy_type'] = get_query_var( 'taxonomy' );
+			$return['taxonomy_type'] = get_query_var( 'category_name' );
 			$return['id']            = get_query_var( 'cat' );
 		} elseif ( is_tag() ) {
 			$return['type']          = 'tag';
@@ -400,19 +400,19 @@ class FW_Extension_SEO extends FW_Extension {
 				break;
 			case 'tag' :
 				$this->seo_tags['title']['value']       = single_term_title( '', false );
-				$this->seo_tags['description']['value'] = term_description( $location['id'], $location['taxonomy_type'] );
+				$this->seo_tags['description']['value'] = strip_tags( term_description( $location['id'], $location['taxonomy_type'] ) );
 				$this->seo_tags['pagenumber']           = $location['paged'];
 				$this->seo_tags['max_page']             = $location['max_pages'];
 				break;
 			case 'category' :
 				$this->seo_tags['title']['value']       = single_term_title( '', false );
-				$this->seo_tags['description']['value'] = term_description( $location['id'], $location['taxonomy_type'] );
+				$this->seo_tags['description']['value'] = strip_tags( term_description( $location['id'], $location['taxonomy_type'] ) );
 				$this->seo_tags['pagenumber']           = $location['paged'];
 				$this->seo_tags['max_page']             = $location['max_pages'];
 				break;
 			case 'taxonomy' :
 				$this->seo_tags['title']['value']       = single_term_title( '', false );
-				$this->seo_tags['description']['value'] = term_description( $location['id'], $location['taxonomy_type'] );
+				$this->seo_tags['description']['value'] = strip_tags( term_description( $location['id'], $location['taxonomy_type'] ) );
 				$this->seo_tags['pagenumber']           = $location['paged'];
 				$this->seo_tags['max_page']             = $location['max_pages'];
 				break;
