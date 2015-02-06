@@ -17,11 +17,11 @@ class _FW_Ext_Seo_Sitemap_Builder {
 	private $file_name = 'sitemap.xml';
 	private $views_path = null;
 	private $url_settings = array(
-		'home'  => array(
+		'home'       => array(
 			'priority'  => 1,
 			'frequency' => 'daily',
 		),
-		'posts' => array(
+		'posts'      => array(
 			'priority'  => 0.6,
 			'frequency' => 'daily',
 			'type'      => array(
@@ -31,11 +31,11 @@ class _FW_Ext_Seo_Sitemap_Builder {
 				)
 			)
 		),
-		'taxonomies'     => array(
+		'taxonomies' => array(
 			'priority'  => 0.4,
 			'frequency' => 'weekly',
 			'type'      => array(
-				'post_tag'   => array(
+				'post_tag' => array(
 					'priority'  => 0.3,
 					'frequency' => 'weekly',
 				)
@@ -54,7 +54,7 @@ class _FW_Ext_Seo_Sitemap_Builder {
 		}
 		self::$active = true;
 
-		$this->views_path = dirname(__DIR__);
+		$this->views_path = dirname( __FILE__ );
 
 		$this->set_up_defaults( $settings );
 	}
@@ -102,7 +102,7 @@ class _FW_Ext_Seo_Sitemap_Builder {
 				if ( isset( $url_settings['posts']['type'] ) ) {
 					$types = $url_settings['posts']['type'];
 					$this->url_settings['posts']['type']
-						   = array_merge( $this->url_settings['posts']['type'], $types );
+					       = array_merge( $this->url_settings['posts']['type'], $types );
 				}
 			}
 
@@ -118,7 +118,7 @@ class _FW_Ext_Seo_Sitemap_Builder {
 				if ( isset( $url_settings['taxonomies']['type'] ) ) {
 					$types = $url_settings['taxonomies']['type'];
 					$this->url_settings['taxonomies']['type']
-						   = array_merge( $this->url_settings['taxonomies']['type'], $types );
+					       = array_merge( $this->url_settings['taxonomies']['type'], $types );
 				}
 			}
 		}
@@ -158,7 +158,9 @@ class _FW_Ext_Seo_Sitemap_Builder {
 	private function check_path() {
 		if ( ! fw_ext_seo_sitemap_try_make_file_writable( $this->get_path() ) ) {
 			if ( is_admin() ) {
-				FW_Flash_Messages::add( 'fw-ext-seo-sitemap-try-edit-file', sprintf( __( 'Could not create/write the %s. File is not writable', 'fw' ), $this->get_path() ), 'warning' );
+				FW_Flash_Messages::add( 'fw-ext-seo-sitemap-try-edit-file',
+					sprintf( __( 'Could not create/write the %s. File is not writable', 'fw' ), $this->get_path() ),
+					'warning' );
 			}
 
 			return false;
@@ -215,7 +217,8 @@ class _FW_Ext_Seo_Sitemap_Builder {
 		if ( intval( $id ) == 0 ) {
 			global $wpdb;
 
-			$post = $wpdb->get_row( 'SELECT post_modified_gmt modified FROM ' . $wpdb->posts . ' WHERE post_type = \'post\' ORDER BY post_modified_gmt DESC LIMIT 1', ARRAY_A );
+			$post = $wpdb->get_row( 'SELECT post_modified_gmt modified FROM ' . $wpdb->posts . ' WHERE post_type = \'post\' ORDER BY post_modified_gmt DESC LIMIT 1',
+				ARRAY_A );
 			$date = $post['modified'];
 		} else {
 			$post = get_post( $id );
@@ -248,21 +251,22 @@ class _FW_Ext_Seo_Sitemap_Builder {
 	private function add_custom_posts() {
 		global $wpdb;
 
-		if( empty( $this->custom_posts ) ) {
+		if ( empty( $this->custom_posts ) ) {
 			return;
 		}
 
 		foreach ( $this->custom_posts as $post_type ) {
 			$items = $wpdb->get_results( $wpdb->prepare(
-					"SELECT id, post_type, post_modified_gmt modified
+				"SELECT id, post_type, post_modified_gmt modified
 					FROM $wpdb->posts
 					WHERE post_type = '%s' AND post_status IN ('publish', 'inherit')",
-					$post_type ),
+				$post_type ),
 				ARRAY_A );
 
 			foreach ( $items as $key => $item ) {
 				$items[ $key ]['url']       = get_permalink( $item['id'] );
-				$items[ $key ]['modified']  = date( apply_filters( 'fw_ext_seo_sitemap_date_format', 'Y-m-d' ), strtotime( $items[ $key ]['modified'] ) );
+				$items[ $key ]['modified']  = date( apply_filters( 'fw_ext_seo_sitemap_date_format', 'Y-m-d' ),
+					strtotime( $items[ $key ]['modified'] ) );
 				$items[ $key ]['priority']  = $this->get_post_type_url_details( $item['post_type'] );
 				$items[ $key ]['frequency'] = $this->get_post_type_url_details( $item['post_type'], 'frequency' );
 
@@ -280,7 +284,7 @@ class _FW_Ext_Seo_Sitemap_Builder {
 	private function add_taxonomies() {
 		global $wpdb;
 
-		if( empty( $this->taxonomies ) ) {
+		if ( empty( $this->taxonomies ) ) {
 			return;
 		}
 
@@ -299,7 +303,8 @@ class _FW_Ext_Seo_Sitemap_Builder {
 					AND		term_tax.taxonomy = '%s'
 					AND		term_tax.term_id = %d
 					WHERE	p.post_status IN ('publish','inherit')", $taxonomy, $term->term_id );
-				$item['modified']  = date( apply_filters( 'fw_ext_seo_sitemap_date_format', 'Y-m-d' ), strtotime( $wpdb->get_var( $sql ) ) );
+				$item['modified']  = date( apply_filters( 'fw_ext_seo_sitemap_date_format', 'Y-m-d' ),
+					strtotime( $wpdb->get_var( $sql ) ) );
 				$item['url']       = get_term_link( $term, $taxonomy );
 				$item['priority']  = $this->get_taxonomy_url_details( $taxonomy );
 				$item['frequency'] = $this->get_taxonomy_url_details( $taxonomy, 'frequency' );
