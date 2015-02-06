@@ -15,7 +15,7 @@ class _FW_Ext_Seo_Sitemap_Builder {
 	private $custom_posts = array();
 	private $taxonomies = array();
 	private $file_name = 'sitemap.xml';
-	private $views_path = __DIR__;
+	private $views_path = null;
 	private $url_settings = array(
 		'home'  => array(
 			'priority'  => 1,
@@ -53,6 +53,8 @@ class _FW_Ext_Seo_Sitemap_Builder {
 			return;
 		}
 		self::$active = true;
+
+		$this->views_path = dirname(__DIR__);
 
 		$this->set_up_defaults( $settings );
 	}
