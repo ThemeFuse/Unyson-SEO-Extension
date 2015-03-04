@@ -13,11 +13,11 @@ function fw_ext_seo_sitemap_update(element) {
 	jQuery.post(ajaxurl, data, function (response) {
 		jQuery(element).removeClass('button-primary-disabled').next('.spinner').hide();
 		if (response)
-		    jQuery('.sitemap-successfully').fadeIn(300);
+			jQuery('.sitemap-successfully').fadeIn(300);
 		else
-		    jQuery('.sitemap-unsuccessfully').fadeIn(300);
+			jQuery('.sitemap-unsuccessfully').fadeIn(300);
 		setTimeout(function () {
-		    jQuery('.sitemap-update-response').fadeOut(300);
+			jQuery('.sitemap-update-response').fadeOut(300);
 		}, 3000);
 		fw_ext_seo_sitemap_update.active = false;
 	});

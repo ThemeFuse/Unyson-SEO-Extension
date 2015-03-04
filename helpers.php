@@ -11,9 +11,9 @@
  * @return string
  */
 function fw_ext_seo_parse_meta_tags( $value ) {
-    if( empty( $value ) ) {
-	    return $value;
-    }
+	if( empty( $value ) ) {
+		return $value;
+	}
 
 	if( is_array( $value ) ) {
 		return $value;

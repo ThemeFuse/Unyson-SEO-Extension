@@ -3,16 +3,16 @@ Sitemap backend styles
 */
 
 .sitemap-update-response {
-    padding: 3px 5px;
-    display: none;
-    border-radius: 3px;
+	padding: 3px 5px;
+	display: none;
+	border-radius: 3px;
 	color: #fff;
 }
 
 .sitemap-update-response.sitemap-successfully {
-    background: #7ad03a;
+	background: #7ad03a;
 }
 
 .sitemap-update-response.sitemap-unsuccessfully {
-    background: #ff5e56;
+	background: #ff5e56;
 }
