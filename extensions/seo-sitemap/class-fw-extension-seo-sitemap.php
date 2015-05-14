@@ -480,9 +480,11 @@ class FW_Extension_Seo_Sitemap extends FW_Extension {
 
 		if ( ! fw_ext_seo_sitemap_try_make_file_writable( $file_path ) ) {
 			if ( is_admin() ) {
-				FW_Flash_Messages::add( 'fw-ext-seo-sitemap-try-modify-file',
-					sprintf( __( 'Could not create/write the %s. File is not writable', 'fw' ), $file_path ),
-					'warning' );
+				FW_Flash_Messages::add(
+					'fw-ext-seo-sitemap-try-modify-file',
+					sprintf( __( 'Could not create/write the %s. Try to create the file manually and make it writable.', 'fw' ), $file_path ),
+					'warning'
+				);
 			}
 
 			return;
