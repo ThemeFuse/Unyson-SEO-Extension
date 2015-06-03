@@ -15,11 +15,6 @@ $cfg = array();
 $cfg['search_engines'] = array( 'google', 'bing' );
 
 /**
- * The frequency of the sitemap refresh (measured in days).
- */
-$cfg['sitemap_refresh_rate'] = 2;
-
-/**
  * Exclude post types from sitemap indexing.
  */
 $cfg['excluded_post_types']  = array( 'attachment' );

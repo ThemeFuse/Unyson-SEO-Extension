@@ -3,8 +3,8 @@
 }
 
 $general_settings_options = apply_filters( 'fw_ext_seo_general_setting_options', array() );
-$general_settings = apply_filters( 'fw_ext_seo_general_settings', array() );
-$tabs             = apply_filters( 'fw_ext_seo_settings_options', array() );
+$general_settings         = apply_filters( 'fw_ext_seo_general_settings', array() );
+$tabs                     = apply_filters( 'fw_ext_seo_settings_options', array() );
 
 if ( empty( $general_settings_options ) && empty( $general_settings ) && empty( $tabs ) ) {
 	$options = array();

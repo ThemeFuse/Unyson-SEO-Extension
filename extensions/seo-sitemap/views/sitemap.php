@@ -5,23 +5,28 @@
 /**
  * Sitemap XML file view
  *
- * @var $items
+ * @var array $sitemaps
  */
+
+echo '<?xml version="1.0" encoding="UTF-8"?>';
+echo '<?xml-stylesheet type="text/xsl" href="' . fw_ext('seo-sitemap')->xsl_url() . '" ?>';
 ?>
 
-<?php foreach ( $items as $item ) : ?>
-	<url>
-		<?php if ( isset( $item['url'] ) ) : ?>
-			<loc><?php echo $item['url'] ?></loc>
-		<?php endif ?>
-		<?php if ( isset( $item['priority'] ) ) : ?>
-			<priority><?php echo $item['priority'] ?></priority>
-		<?php endif ?>
-		<?php if ( isset( $item['frequency'] ) ) : ?>
-			<changefreq><?php echo $item['frequency'] ?></changefreq>
-		<?php endif ?>
-		<?php if ( isset( $item['modified'] ) ) : ?>
-			<lastmod><?php echo $item['modified'] ?></lastmod>
-		<?php endif ?>
-	</url>
-<?php endforeach ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+	<?php foreach ( $sitemaps as $sitemap ) : ?>
+		<url>
+			<?php if ( isset( $sitemap['url'] ) ) : ?>
+				<loc><?php echo $sitemap['url'] ?></loc>
+			<?php endif ?>
+			<?php if ( isset( $sitemap['priority'] ) ) : ?>
+				<priority><?php echo $sitemap['priority'] ?></priority>
+			<?php endif ?>
+			<?php if ( isset( $sitemap['frequency'] ) ) : ?>
+				<changefreq><?php echo $sitemap['frequency'] ?></changefreq>
+			<?php endif ?>
+			<?php if ( isset( $sitemap['modified'] ) ) : ?>
+				<lastmod><?php echo $sitemap['modified'] ?></lastmod>
+			<?php endif ?>
+		</url>
+	<?php endforeach ?>
+</urlset>

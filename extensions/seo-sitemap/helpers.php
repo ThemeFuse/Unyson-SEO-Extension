@@ -46,6 +46,9 @@ function fw_ext_seo_sitemap_get_search_engines_names( $array = true, $divider = 
 
 /**
  * Return the home path
+ *
+ * @deprecated since version 1.2.0
+ *
  * @return string
  */
 function fw_ext_seo_sitemap_get_home_path() {
@@ -83,9 +86,11 @@ function fw_ext_seo_sitemap_get_stiemap_link() {
 
 /**
  * Updates sitemap
+ *
+ * @deprecated since version 1.2.0
  */
 function fw_ext_seo_sitemap_update() {
-	fw()->extensions->get( 'seo-sitemap' )->update_sitemap();
+	return true;
 }
 
 /**
@@ -108,4 +113,24 @@ function fw_ext_seo_sitemap_try_make_file_writable( $filename ) {
 	}
 
 	return true;
+}
+
+function fw_ext_seo_sitemaps_array_merge_recursive(array & $array1, array & $array2)
+{
+	$merged = $array1;
+
+	foreach ($array2 as $key => & $value)
+	{
+		if (is_array($value) && isset($merged[$key]) && is_array($merged[$key]))
+		{
+			$merged[$key] = fw_ext_seo_sitemaps_array_merge_recursive($merged[$key], $value);
+		} else if (is_numeric($key))
+		{
+			if (!in_array($value, $merged))
+				$merged[] = $value;
+		} else
+			$merged[$key] = $value;
+	}
+
+	return $merged;
 }
