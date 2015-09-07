@@ -13,4 +13,4 @@
 
 ?>
 
-<meta name="<?php echo $name ?>" content="<?php echo $content ?>"/>
+<meta name="<?php echo esc_attr($name) ?>" content="<?php echo esc_attr($content) ?>"/>
