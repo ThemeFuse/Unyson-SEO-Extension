@@ -10,7 +10,7 @@ $manifest['description'] = __(
 	.' by adding optimized meta titles, keywords and descriptions.',
 	'fw'
 );
-$manifest['version'] = '1.0.3';
+$manifest['version'] = '1.0.4';
 $manifest['display'] = true;
 $manifest['standalone'] = true;
 
