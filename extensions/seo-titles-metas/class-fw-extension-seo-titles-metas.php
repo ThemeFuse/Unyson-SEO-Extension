@@ -213,6 +213,11 @@ class FW_Extension_Seo_Titles_Metas extends FW_Extension {
 	 */
 	public function _action_add_meta() {
 		$location = $this->get_parent()->get_location();
+
+		if (empty($location['type'])) {
+			return;
+		}
+
 		$prefix   = $this->get_name() . '-';
 
 		$data = array();
