@@ -542,6 +542,11 @@ class FW_Extension_Seo_Titles_Metas extends FW_Extension {
 		$location = $this->get_parent()->get_location();
 		$prefix   = $this->get_name() . '-';
 
+		if (empty($location['type'])) {
+			// fixme: investigate why this happens and add an info comment here
+			return;
+		}
+
 		switch ( $location['type'] ) {
 			case '404' :
 				$fw_title = fw_ext_seo_parse_meta_tags( fw_get_db_ext_settings_option( $this->get_parent()->get_name(),
