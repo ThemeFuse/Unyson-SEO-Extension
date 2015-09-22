@@ -215,6 +215,7 @@ class FW_Extension_Seo_Titles_Metas extends FW_Extension {
 		$location = $this->get_parent()->get_location();
 
 		if (empty($location['type'])) {
+			// fixme: investigate why this happens and add an info comment here
 			return;
 		}
 
