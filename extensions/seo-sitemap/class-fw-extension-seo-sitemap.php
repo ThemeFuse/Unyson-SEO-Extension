@@ -339,14 +339,18 @@ class FW_Extension_Seo_Sitemap extends FW_Extension {
 	 * @internal
 	 **/
 	public function _action_load_xsl() {
-		$name = get_query_var( $this->xsl_key );
-
-		if ( ! in_array( $name, array( 'sitemap', 'sitemap-index' ) ) ) {
-			return;
+		if (
+			!is_admin()
+			&&
+			in_array( $name = get_query_var( $this->xsl_key ), array( 'sitemap', 'sitemap-index' ) )
+		) {
+			$this->render_view(
+				$name == 'sitemap' ?  'sitemap-style' : 'index-sitemap-style',
+				array(),
+				false
+			);
+			exit;
 		}
-
-		echo $name == 'sitemap' ? $this->render_view( 'sitemap-style' ) : $this->render_view( 'index-sitemap-style' );
-		exit;
 	}
 
 	/**
