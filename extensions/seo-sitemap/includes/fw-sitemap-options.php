@@ -70,7 +70,14 @@ function fw_ext_seo_sitemap_get_settings_options() {
 									'type'  => 'html',
 									'html'  => '<a href="' . fw_ext_seo_sitemap_get_stiemap_link() . '" target="_blank" class="button-secondary">' . __( 'XML Sitemap',
 											'fw' ) . '</a>',
-									'value' => ''
+									'value' => '',
+									'help'  => sprintf(
+										__('%s must be enabled in order for the Sitemap to work properly.', 'fw'),
+										fw_html_tag('a', array(
+											'href' => admin_url('options-permalink.php'),
+											'target' => '_blank',
+										), __('Permalinks', 'fw'))
+									),
 								)
 							)
 						),
