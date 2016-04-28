@@ -62,7 +62,7 @@ class FW_Extension_Seo_Titles_Metas extends FW_Extension {
 	 * Init the frontend area filters
 	 */
 	private function add_theme_filters() {
-		add_filter( 'wp_title', array( $this, '_action_add_title' ), 999, 3 );
+		add_filter( 'pre_get_document_title', array( $this, '_filter_title' ), 999 );
 	}
 
 	/**
@@ -528,72 +528,65 @@ class FW_Extension_Seo_Titles_Metas extends FW_Extension {
 	}
 
 	/**
-	 * Init the titles-metas extension in frontend
-	 * This method get the location ( posts, pages, archives, taxonomies ) SEO titles and returns to the wp_title
-	 *
-	 * @param $title , current wordpress title, before being processed
-	 * @param $sep , worpdress title separator
-	 * @param $sepdirection , wordpress separator direction
-	 *
+	 * @param $title current wordpress title
 	 * @return string
 	 * @internal
 	 */
-	public function _action_add_title( $title, $sep, $sepdirection ) {
+	public function _filter_title( $title ) {
 		$location = $this->get_parent()->get_location();
 		$prefix   = $this->get_name() . '-';
 
 		if (empty($location['type'])) {
 			// fixme: investigate why this happens and add an info comment here
-			return;
+			return $title;
 		}
 
 		switch ( $location['type'] ) {
 			case '404' :
-				$fw_title = fw_ext_seo_parse_meta_tags( fw_get_db_ext_settings_option( $this->get_parent()->get_name(),
-					$prefix . 'not-found-title' ) );
-				if ( ! empty( $fw_title ) ) {
+				if ( $fw_title = trim( fw_ext_seo_parse_meta_tags(
+					fw_get_db_ext_settings_option( $this->get_parent()->get_name(), $prefix . 'not-found-title' )
+				) ) ) {
 					$title = $fw_title;
 				}
 				break;
 			case 'search' :
-				$fw_title = fw_ext_seo_parse_meta_tags( fw_get_db_ext_settings_option( $this->get_parent()->get_name(),
-					$prefix . 'search-page-title' ) );
-				if ( ! empty( $fw_title ) ) {
+				if ( $fw_title = trim( fw_ext_seo_parse_meta_tags(
+					fw_get_db_ext_settings_option( $this->get_parent()->get_name(), $prefix . 'search-page-title' )
+				) ) ) {
 					$title = $fw_title;
 				}
 				break;
 			case 'author_archive' :
-				$fw_title = fw_ext_seo_parse_meta_tags( fw_get_db_ext_settings_option( $this->get_parent()->get_name(),
-					$prefix . 'author-archive-title' ) );
-				if ( ! empty( $fw_title ) ) {
+				if ( $fw_title = trim( fw_ext_seo_parse_meta_tags(
+					fw_get_db_ext_settings_option( $this->get_parent()->get_name(), $prefix . 'author-archive-title' )
+				) ) ) {
 					$title = $fw_title;
 				}
 				break;
 			case 'date_archive' :
-				$fw_title = fw_ext_seo_parse_meta_tags( fw_get_db_ext_settings_option( $this->get_parent()->get_name(),
-					$prefix . 'date-archive-title' ) );
-				if ( ! empty( $fw_title ) ) {
+				if ( $fw_title = trim( fw_ext_seo_parse_meta_tags(
+					fw_get_db_ext_settings_option( $this->get_parent()->get_name(), $prefix . 'date-archive-title' )
+				) ) ) {
 					$title = $fw_title;
 				}
 				break;
 			case 'front_page' :
-				$fw_title = fw_ext_seo_parse_meta_tags( fw_get_db_ext_settings_option( $this->get_parent()->get_name(),
-					$prefix . 'homepage-title' ) );
-				if ( ! empty( $fw_title ) ) {
+				if ( $fw_title = trim( fw_ext_seo_parse_meta_tags(
+					fw_get_db_ext_settings_option( $this->get_parent()->get_name(), $prefix . 'homepage-title' )
+				) ) ) {
 					$title = $fw_title;
 				} elseif ( isset( $location['id'] ) ) {
-					$fw_title = fw_ext_seo_parse_meta_tags( fw_get_db_post_option( $location['id'],
-						$prefix . 'title' ) );
-
-					if ( ! empty( $fw_title ) ) {
+					if ( $fw_title = trim( fw_ext_seo_parse_meta_tags(
+						fw_get_db_post_option( $location['id'], $prefix . 'title' )
+					) ) ) {
 						$title = $fw_title;
 					}
 				}
 				break;
 			case 'blog_page' :
-				$fw_title = fw_ext_seo_parse_meta_tags( fw_get_db_post_option( $location['id'], $prefix . 'title' ) );
-
-				if ( ! empty( $fw_title ) ) {
+				if ( $fw_title = trim( fw_ext_seo_parse_meta_tags(
+					fw_get_db_post_option( $location['id'], $prefix . 'title' )
+				) ) ) {
 					$title = $fw_title;
 				}
 				break;
@@ -602,13 +595,16 @@ class FW_Extension_Seo_Titles_Metas extends FW_Extension {
 					break;
 				}
 
-				$fw_title = fw_ext_seo_parse_meta_tags( fw_get_db_post_option( $location['id'], $prefix . 'title' ) );
-				if ( empty( $fw_title ) ) {
-					$fw_title = fw_ext_seo_parse_meta_tags( fw_get_db_ext_settings_option( $this->get_parent()->get_name(),
-						$prefix . $location['post_type'] . '-title' ) );
-				}
-
-				if ( ! empty( $fw_title ) ) {
+				if ( $fw_title = trim( fw_ext_seo_parse_meta_tags(
+					fw_get_db_post_option( $location['id'], $prefix . 'title' )
+				) ) ) {
+					$title = $fw_title;
+				} elseif ( $fw_title = trim( fw_ext_seo_parse_meta_tags(
+					fw_get_db_ext_settings_option(
+						$this->get_parent()->get_name(),
+						$prefix . $location['post_type'] . '-title'
+					)
+				) ) ) {
 					$title = $fw_title;
 				}
 				break;
@@ -617,62 +613,61 @@ class FW_Extension_Seo_Titles_Metas extends FW_Extension {
 					break;
 				}
 
-				$fw_title = fw_ext_seo_parse_meta_tags( fw_get_db_term_option( $location['id'], 'category',
-					$prefix . 'title' ) );
-
-				if ( empty( $fw_title ) ) {
-					$fw_title = fw_ext_seo_parse_meta_tags( fw_get_db_ext_settings_option( $this->get_parent()->get_name(),
-						$prefix . 'category-title' ) );
-				}
-				if ( ! empty( $fw_title ) ) {
+				if ( $fw_title = trim( fw_ext_seo_parse_meta_tags(
+					fw_get_db_term_option( $location['id'], 'category', $prefix . 'title' )
+				) ) ) {
+					$title = $fw_title;
+				} elseif ( $fw_title = trim( fw_ext_seo_parse_meta_tags(
+					fw_get_db_ext_settings_option( $this->get_parent()->get_name(), $prefix . 'category-title' )
+				) ) ) {
 					$title = $fw_title;
 				}
-
 				break;
 			case 'tag' :
 				if ( ! in_array( 'post_tag', $this->allowed_taxonomies ) ) {
 					break;
 				}
 
-
-				$fw_title = fw_ext_seo_parse_meta_tags( fw_get_db_term_option( $location['id'], 'post_tag',
-					$prefix . 'title' ) );
-				if ( empty( $fw_title ) ) {
-					$fw_title = fw_ext_seo_parse_meta_tags( fw_get_db_ext_settings_option( $this->get_parent()->get_name(),
-						$prefix . 'post_tag-title' ) );
-				}
-
-				if ( ! empty( $fw_title ) ) {
+				if ( $fw_title = trim( fw_ext_seo_parse_meta_tags(
+					fw_get_db_term_option( $location['id'], 'post_tag', $prefix . 'title' )
+				) ) ) {
+					$title = $fw_title;
+				} elseif ( $fw_title = trim( fw_ext_seo_parse_meta_tags(
+						fw_get_db_ext_settings_option( $this->get_parent()->get_name(), $prefix . 'post_tag-title' )
+				) ) ) {
 					$title = $fw_title;
 				}
-
 				break;
 			case 'taxonomy' :
 				if ( ! in_array( $location['taxonomy_type'], $this->allowed_taxonomies ) ) {
 					break;
 				}
 
-				$fw_title = fw_ext_seo_parse_meta_tags( fw_get_db_term_option( $location['id'],
-					$location['taxonomy_type'], $prefix . 'title' ) );
-				if ( empty( $fw_title ) ) {
-					$fw_title = fw_ext_seo_parse_meta_tags( fw_get_db_ext_settings_option( $this->get_parent()->get_name(),
-						$prefix . $location['taxonomy_type'] . '-title' ) );
-				}
-
-				if ( ! empty( $fw_title ) ) {
+				if ( $fw_title = trim( fw_ext_seo_parse_meta_tags(
+						fw_get_db_term_option( $location['id'], $location['taxonomy_type'], $prefix . 'title' )
+				) ) ) {
+					$title = $fw_title;
+				} elseif ( $fw_title = trim( fw_ext_seo_parse_meta_tags(
+					fw_get_db_ext_settings_option( $this->get_parent()->get_name(), $prefix . $location['taxonomy_type'] . '-title' )
+				) ) ) {
 					$title = $fw_title;
 				}
 				break;
 			case 'feed' :
-				$fw_title = fw_ext_seo_parse_meta_tags( fw_get_db_ext_settings_option( $this->get_parent()->get_name(),
-					$prefix . 'homepage-title' ) );
-				if ( ! empty( $fw_title ) ) {
+				if ( $fw_title = trim( fw_ext_seo_parse_meta_tags(
+					fw_get_db_ext_settings_option( $this->get_parent()->get_name(), $prefix . 'homepage-title' )
+				) ) ) {
 					$title = $fw_title;
 				}
 				break;
 		}
 
-		$title = apply_filters( 'fw_ext_seo_titles_metas_load_title', $title, $sep, $sepdirection, $location );
+		/**
+		 * In latest WP the `wp_title` filter is deprecated and the new filter has no $sep and $sepdirection params
+		 */
+		// $title = apply_filters( 'fw_ext_seo_titles_metas_load_title', $title, $sep, $sepdirection, $location );
+
+		$title = apply_filters( 'fw_ext_seo_titles_metas_title', $title, $location );
 
 		return $title;
 	}
@@ -683,11 +678,7 @@ class FW_Extension_Seo_Titles_Metas extends FW_Extension {
 	 */
 	public function _action_set_allowed_items() {
 
-		$post_types     = get_post_types(
-			array(
-				'public' => true
-			)
-		);
+		$post_types = get_post_types( array( 'public' => true ) );
 		$excluded_posts = $this->get_config( 'excluded_post_types' );
 		unset( $post_types['nav_menu_item'] );
 		unset( $post_types['revision'] );
