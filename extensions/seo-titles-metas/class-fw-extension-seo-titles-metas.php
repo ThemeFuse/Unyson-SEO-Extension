@@ -63,6 +63,7 @@ class FW_Extension_Seo_Titles_Metas extends FW_Extension {
 	 */
 	private function add_theme_filters() {
 		add_filter( 'pre_get_document_title', array( $this, '_filter_title' ), 999 );
+		add_filter( 'wp_title', array( $this, '_filter_title' ), 999 );
 	}
 
 	/**
