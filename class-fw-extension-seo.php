@@ -345,6 +345,10 @@ class FW_Extension_SEO extends FW_Extension {
 		if ( empty( $this->seo_tags ) ) {
 			$this->get_seo_tags();
 		}
+		
+		if (empty($location['type'])) {
+			return $location;
+		}
 
 		switch ( $location['type'] ) {
 			case 'search' :
