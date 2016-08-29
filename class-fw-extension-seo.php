@@ -21,12 +21,18 @@ class FW_Extension_SEO extends FW_Extension {
 	 * @internal
 	 */
 	public function _init() {
+		add_action('fw_option_types_init', array($this, '_action_option_types_init'));
+
 		if ( is_admin() ) {
 			$this->add_admin_actions();
 			$this->add_admin_filters();
 		} else {
 			$this->add_theme_actions();
 		}
+	}
+
+	public function _action_option_types_init() {
+		require_once dirname( __FILE__ ) . '/includes/option-types/seo-tags/class-fw-option-type-seo-tags.php';
 	}
 
 	public function _admin_action_add_static() {
