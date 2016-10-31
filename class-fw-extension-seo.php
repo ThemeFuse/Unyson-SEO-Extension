@@ -117,7 +117,7 @@ class FW_Extension_SEO extends FW_Extension {
 		$this->seo_tags['currentmonth'] = array(
 			'name'  => '%%currentmonth%%',
 			'desc'  => __( 'Current month', 'fw' ),
-			'value' => date( 'Y' ),
+			'value' => date( 'F Y' ),
 		);
 
 		$this->seo_tags['currentyear'] = array(
@@ -371,6 +371,19 @@ class FW_Extension_SEO extends FW_Extension {
 			case 'date_archive' :
 				$this->seo_tags['pagenumber'] = $location['paged'];
 				$this->seo_tags['max_page']   = $location['max_pages'];
+
+				// get date for current archive
+				if ( is_year() ) {
+					$date = get_the_date( 'Y', get_the_ID() );
+				} elseif ( is_month() ) {
+					$date = get_the_date( 'F Y', get_the_ID() );
+				} elseif ( is_day() ) {
+					$date = get_the_date( 'F j, Y', get_the_ID() );
+				} else {
+					$date = '';
+				}
+				$this->seo_tags['date']['value'] = $date;
+				
 				break;
 			case 'front_page' :
 				$this->seo_tags['pagenumber'] = $location['paged'];
