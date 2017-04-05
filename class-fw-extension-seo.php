@@ -480,13 +480,7 @@ class FW_Extension_SEO extends FW_Extension {
 				$seo_options['type'] = 'tab';
 				$post_options['main']['options'][ $this->get_name() ] = $seo_options;
 			} else {
-				$seo_options = array(
-					'title' => false,
-					'type'    => 'box',
-					'options' => array(
-						$this->get_name() => $seo_options
-					)
-				);
+				$seo_options['type']               = 'box';
 				$post_options[ $this->get_name() ] = $seo_options;
 			}
 		}
