@@ -101,6 +101,8 @@ class FW_Extension_Seo_Titles_Metas extends FW_Extension {
 			return array();
 		}
 
+		$this->_action_set_allowed_items();
+
 		$custom_posts_options = array();
 
 		foreach ( $this->allowed_post_types as $post_type ) {
