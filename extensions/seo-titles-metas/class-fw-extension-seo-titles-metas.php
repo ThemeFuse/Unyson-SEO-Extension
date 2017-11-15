@@ -230,6 +230,7 @@ class FW_Extension_Seo_Titles_Metas extends FW_Extension {
 			case 'front_page' :
 				$description = fw_ext_seo_parse_meta_tags( fw_get_db_ext_settings_option( $this->get_parent()->get_name(),
 					$prefix . 'homepage-description' ) );
+
 				if ( ! empty( $description ) ) {
 					$data['description'] = array(
 						'content' => $description,
@@ -238,6 +239,7 @@ class FW_Extension_Seo_Titles_Metas extends FW_Extension {
 				} elseif ( isset( $location['id'] ) ) {
 					$description = fw_ext_seo_parse_meta_tags( fw_get_db_post_option( $location['id'],
 						$prefix . 'description' ) );
+
 					if ( ! empty( $description ) ) {
 						$data['description'] = array(
 							'content' => $description,
@@ -246,9 +248,7 @@ class FW_Extension_Seo_Titles_Metas extends FW_Extension {
 					}
 				}
 
-				if ( fw_get_db_ext_settings_option( $this->get_parent()->get_name(),
-						'seo-titles-metas-metakeywords' ) === true
-				) {
+				if ( fw_get_db_ext_settings_option( $this->get_parent()->get_name(), 'seo-titles-metas-metakeywords' ) === true ) {
 					$meta_keywords = fw_ext_seo_parse_meta_tags( fw_get_db_ext_settings_option( $this->get_parent()->get_name(),
 						$prefix . 'homepage-metakeywords' ) );
 
@@ -260,10 +260,11 @@ class FW_Extension_Seo_Titles_Metas extends FW_Extension {
 					} elseif ( isset( $location['id'] ) ) {
 						$meta_keywords = fw_ext_seo_parse_meta_tags( fw_get_db_post_option( $location['id'],
 							$prefix . 'metakeywords' ) );
+
 						if ( ! empty( $meta_keywords ) ) {
 							$data['keywords'] = array(
 								'content' => $meta_keywords,
-								'name'    => 'description'
+								'name'    => 'keywords'
 							);
 						}
 					}
