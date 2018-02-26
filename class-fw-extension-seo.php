@@ -397,8 +397,8 @@ class FW_Extension_SEO extends FW_Extension {
 				global $post;
 				$this->seo_tags['date']['value']         = get_the_date();
 				$this->seo_tags['title']['value']        = get_the_title();
-				$this->seo_tags['excerpt']['value']      = ( has_excerpt() ) ? get_the_excerpt() : wp_trim_excerpt();
-				$this->seo_tags['excerpt_only']['value'] = ( has_excerpt() ) ? get_the_excerpt() : '';
+				$this->seo_tags['excerpt']['value']      =  ! empty( $post->post_excerpt ) ? get_the_excerpt() : wp_trim_excerpt( $post->post_content );
+				$this->seo_tags['excerpt_only']['value'] = ! empty( $post->post_excerpt ) ? get_the_excerpt() : '';
 				$this->seo_tags['modified']['value']     = $post->post_modified;
 				$this->seo_tags['id']['value']           = $post->ID;
 				$this->seo_tags['author_id']['value']    = $post->post_author;
