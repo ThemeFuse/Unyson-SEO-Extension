@@ -14,7 +14,7 @@ $manifest['github_repo'] = 'https://github.com/ThemeFuse/Unyson-SEO-Extension';
 $manifest['uri'] = 'http://manual.unyson.io/en/latest/extension/seo/index.html#content';
 $manifest['author'] = 'ThemeFuse';
 $manifest['author_uri'] = 'http://themefuse.com/';
-$manifest['version'] = '1.0.11';
+$manifest['version'] = '1.0.12';
 $manifest['display'] = true;
 $manifest['standalone'] = true;
 
