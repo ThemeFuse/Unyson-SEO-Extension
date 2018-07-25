@@ -351,7 +351,7 @@ class FW_Extension_SEO extends FW_Extension {
 		if ( empty( $this->seo_tags ) ) {
 			$this->get_seo_tags();
 		}
-		
+
 		if (empty($location['type'])) {
 			return $location;
 		}
@@ -383,7 +383,7 @@ class FW_Extension_SEO extends FW_Extension {
 					$date = '';
 				}
 				$this->seo_tags['date']['value'] = $date;
-				
+
 				break;
 			case 'front_page' :
 				$this->seo_tags['pagenumber'] = $location['paged'];
@@ -397,7 +397,7 @@ class FW_Extension_SEO extends FW_Extension {
 				global $post;
 				$this->seo_tags['date']['value']         = get_the_date();
 				$this->seo_tags['title']['value']        = get_the_title();
-				$this->seo_tags['excerpt']['value']      =  ! empty( $post->post_excerpt ) ? get_the_excerpt() : wp_trim_excerpt( $post->post_content );
+				$this->seo_tags['excerpt']['value']      = ! empty( $post->post_excerpt ) ? get_the_excerpt() : ( ! empty( $post->post_content ) ? wp_trim_excerpt( $post->post_content ) : '' );
 				$this->seo_tags['excerpt_only']['value'] = ! empty( $post->post_excerpt ) ? get_the_excerpt() : '';
 				$this->seo_tags['modified']['value']     = $post->post_modified;
 				$this->seo_tags['id']['value']           = $post->ID;
